@@ -1,0 +1,26 @@
+body{
+    margin:0;
+    height:100vh;
+    overflow: hidden;
+    background: #111 url(bg.jpg) center/cover no-repeat;
+    image-rendering: pixelated;
+}
+
+#ghost{
+    position: absolute;
+    left: 80px;
+    bottom: 9vh;
+    width: 64px;
+    height: 64px;
+    background: url(ghost.png) 0 0/256px 64px no-repeat;
+    image-rendering: pixelated;
+    animation: fly 1.2s steps(4) infinite, bob 1s ease-in-out infinite alternate;
+}
+
+@keyframes fly{
+    to{background-position-x: -256px;}
+}
+
+@keyframes bob{
+    to{transform: translateY(-6px)}
+}
