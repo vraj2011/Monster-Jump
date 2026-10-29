@@ -2,7 +2,7 @@ body{
     margin:0;
     height:100vh;
     overflow: hidden;
-    background: #111 url(bg1.png) center bottom/cover no-repeat;
+    background: #111 url(bg.png) center bottom/cover no-repeat;
     image-rendering: pixelated;
 }
 
@@ -12,11 +12,20 @@ body{
     bottom: max(5.4vw,9.6vh);
     width: 150px;
     height: 145px;
-    background: url(ghost.png) 0 0/600px 145px no-repeat;
+    background: url(tashu.png) 0 0/600px 145px no-repeat;
     image-rendering: pixelated;
     animation: fly 1.2s steps(4) infinite;
 }
 
 @keyframes fly{
     to{background-position-x: -600px;}
+}
+
+#ob{
+    position: absolute;
+    bottom: max(5.4vw,9.6vh);
+    left: 100vw;
+    width: 50px;
+    height: 80px;
+    background: #0a0000;
 }
