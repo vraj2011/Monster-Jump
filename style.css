@@ -25,7 +25,6 @@ body{
     position: absolute;
     bottom: max(5.4vw,9.6vh);
     left: 100vw;
-    width: 50px;
-    height: 80px;
-    background: #0a0000;
+    background-repeat: no-repeat;
+    image-rendering: pixelated;
 }

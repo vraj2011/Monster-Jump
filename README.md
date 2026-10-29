@@ -14,3 +14,4 @@
 
 - TASHU IS THE ONE WHO IS BEING CAPTURED BY SOME MONSTERS
 - WE HAVE TO SAVE TASHU!!
+dont ask me why i love tash** in my projects (its a secret)

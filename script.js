@@ -1,8 +1,25 @@
-const ob=document.getElementById('ob');
-let x=innerWidth;
-
 const g=document.getElementById('ghost');
-let y=0,v=0;
+const ob=document.getElementById('ob');
+const mons=[
+  {img:'small.png',w:100,h:80,n:2},
+  {img:'big.png',w:92,h:128,n:6},
+  {img:'bat.png',w:160,h:125,n:2}
+];
+
+let y=0,v=0,x=innerWidth,m,f=0,t=0;
+
+function pick(){
+  m=mons[Math.floor(Math.random()*mons.length)];
+  ob.style.width=m.w+'px';
+  ob.style.height=m.h+'px';
+  ob.style.backgroundImage='url('+m.img+')';
+  ob.style.backgroundSize=(m.w*m.n)+'px '+m.h+'px';
+  ob.style.backgroundPosition='0 0';
+  f=0;
+  x=innerWidth;
+}
+pick();
+
 
 function jump(){
     if(y===0)v=20;
@@ -21,10 +38,23 @@ function loop(){
   y+=v;
   if(y<0){y=0;v=0}
   g.style.translate='0 '+(-y)+'px';
+ 
   x-=8;
-  if (x<-60)x=innerWidth;
+  if(x<-m.w)pick();
+  t++;
+  if(t%10===0){
+    f=(f+1)%m.n;
+    ob.style.backgroundPosition=(-f*m.w)+'px 0';
+  }
   ob.style.left=x+'px';
-  
+ 
+  const a=g.getBoundingClientRect();
+  const b=ob.getBoundingClientRect();
+  if(a.right-20>b.left+20&&a.left+20<b.right-20&&a.bottom-20>b.top+20){
+    alert('Game over');
+    location.reload();
+  }
   requestAnimationFrame(loop);
 }
 loop();
+        
