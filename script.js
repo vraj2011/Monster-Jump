@@ -10,7 +10,7 @@ const mons=[
   {img:'bat.png',w:160,h:125,n:2}
 ];
 
-let y=0,v=0,x=innerWidth,m,f=0,t=0,s=0,sp=8,dead=false,dt=0;
+let y=0,v=0,x=innerWidth,m,f=0,t=0,s=0,sp=8,dead=false,dt=0,last=0,lv=1;
 
 function pick(){
   m=mons[Math.floor(Math.random()*mons.length)];
@@ -64,9 +64,11 @@ function loop(){
   g.style.translate='0 '+(-y)+'px';
  
  s++;
-sp=Math.min(24,11+s/600);
+lv=1+Math.floor(s/900);
+sp=Math.min(20,8+(lv-1)*1.5);
+
 x-=sp;
-sc.textContent=Math.floor(s/6);
+sc.textContent='LV '+lv+'  '+Math.floor(s/6);
   if(x<-m.w)pick();
   t++;
   if(t%10===0){
