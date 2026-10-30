@@ -5,15 +5,20 @@ const go=document.getElementById('go');
 const fs=document.getElementById('fs');
 
 const mons=[
-  {img:'small.png',w:100,h:80,n:2},
-  {img:'big.png',w:92,h:128,n:6},
-  {img:'bat.png',w:160,h:125,n:2}
+  {img:'small.png',w:100,h:80,n:2,b:0,l:1},
+  {img:'big.png',w:92,h:128,n:6,b:0,l:1},
+  {img:'bat.png',w:160,h:125,n:2,b:20,l:2},
+  {img:'bat.png',w:160,h:125,n:2,b:115,l:3},
+  
 ];
 
 let y=0,v=0,x=innerWidth,m,f=0,t=0,s=0,sp=8,dead=false,dt=0,last=0,lv=1;
-
+ 
+ 
 function pick(){
-  m=mons[Math.floor(Math.random()*mons.length)];
+  const ok=mons.filter(q=>q.l<=lv);
+  m=ok[Math.floor(Math.random()*ok.length)];
+  ob.style.bottom='calc(max(5.4vw,9.6vh) + '+m.b+'px)';
   ob.style.width=m.w+'px';
   ob.style.height=m.h+'px';
   ob.style.backgroundImage='url('+m.img+')';
@@ -23,14 +28,16 @@ function pick(){
   x=innerWidth;
 }
 pick();
+ 
 
 function start(){
-  y=0;v=0;s=0;sp=8;t=0;
+  y=0;v=0;s=0;sp=8;t=0;lv=1;
   g.style.translate='0 0';
   pick();
   go.style.display='none';
   dead=false;
-  loop();
+  last=performance.now();
+  requestAnimationFrame(loop);
 }
 
 function end(){
@@ -57,38 +64,37 @@ document.addEventListener('keydown',e=>{
 
 addEventListener('pointerdown',jump);
  
-function loop(){
-  v-=0.799;
-  y+=v;
+function loop(now){
+  const d=Math.min((now-last)/16.667,3);
+  last=now;
+  v-=0.799*d;
+  y+=v*d;
   if(y<0){y=0;v=0}
   g.style.translate='0 '+(-y)+'px';
  
- s++;
-lv=1+Math.floor(s/900);
-sp=Math.min(20,8+(lv-1)*1.5);
 
-x-=sp;
-sc.textContent='LV '+lv+'  '+Math.floor(s/6);
+ s+=d;
+  lv=1+Math.floor(s/900);
+  sp=Math.min(20,8+(lv-1)*1.5);
+  x-=sp*d;
+  sc.textContent='LV '+lv+'  '+Math.floor(s/6);
   if(x<-m.w)pick();
-  t++;
-  if(t%10===0){
+  t+=d;
+  if(t>=10){
+    t-=10;
     f=(f+1)%m.n;
     ob.style.backgroundPosition=(-f*m.w)+'px 0';
   }
-
-
   ob.style.left=x+'px';
  
   const a=g.getBoundingClientRect();
   const b=ob.getBoundingClientRect();
-
-  if(a.right-20>b.left+20&&a.left+20<b.right-20&&a.bottom-20>b.top+20){
+  if(a.right-20>b.left+20&&a.left+20<b.right-20&&a.bottom-20>b.top+20&&a.top+20<b.bottom-20){
     end();
-    return; 
+    return;
   }
-
   requestAnimationFrame(loop);
 }
-
-loop();
-        
+last=performance.now();
+requestAnimationFrame(loop);
+ 
