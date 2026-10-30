@@ -1,6 +1,8 @@
 const g=document.getElementById('ghost');
 const ob=document.getElementById('ob');
 const sc=document.getElementById('sc');
+const go=document.getElementById('go');
+const fs=document.getElementById('fs');
 
 const mons=[
   {img:'small.png',w:100,h:80,n:2},
@@ -8,7 +10,7 @@ const mons=[
   {img:'bat.png',w:160,h:125,n:2}
 ];
 
-let y=0,v=0,x=innerWidth,m,f=0,t=0,s=0,sp=8
+let y=0,v=0,x=innerWidth,m,f=0,t=0,s=0,sp=8,dead=false,dt=0;
 
 function pick(){
   m=mons[Math.floor(Math.random()*mons.length)];
@@ -22,8 +24,27 @@ function pick(){
 }
 pick();
 
+function start(){
+  y=0;v=0;s=0;sp=8;t=0;
+  g.style.translate='0 0';
+  pick();
+  go.style.display='none';
+  dead=false;
+  loop();
+}
+
+function end(){
+  dead=true;
+  dt=Date.now();
+  fs.textContent=Math.floor(s/6);
+  go.style.display='flex';
+}
 
 function jump(){
+  if(dead){
+    if(Date.now()-dt>400)start();
+    return;
+  }
     if(y===0)v=20;
 }
 
@@ -33,16 +54,17 @@ document.addEventListener('keydown',e=>{
     jump();
   }
 });
+
 addEventListener('pointerdown',jump);
  
 function loop(){
-  v-=0.8;
+  v-=0.799;
   y+=v;
   if(y<0){y=0;v=0}
   g.style.translate='0 '+(-y)+'px';
  
  s++;
-sp=Math.min(20,8+s/600);
+sp=Math.min(24,11+s/600);
 x-=sp;
 sc.textContent=Math.floor(s/6);
   if(x<-m.w)pick();
@@ -57,11 +79,14 @@ sc.textContent=Math.floor(s/6);
  
   const a=g.getBoundingClientRect();
   const b=ob.getBoundingClientRect();
+
   if(a.right-20>b.left+20&&a.left+20<b.right-20&&a.bottom-20>b.top+20){
-    alert('Game over: '+Math.floor(s/6));
-    location.reload();
+    end();
+    return; 
   }
+
   requestAnimationFrame(loop);
 }
+
 loop();
         
