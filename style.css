@@ -1,3 +1,4 @@
+
 body{
     margin:0;
     height:100vh;
@@ -27,4 +28,12 @@ body{
     left: 100vw;
     background-repeat: no-repeat;
     image-rendering: pixelated;
+}
+
+#sc{
+    position: fixed;
+    top: 20px;
+    right: 30px;
+    font: 24px "Press Start 2P", monospace;
+    color: #14102a;
 }
