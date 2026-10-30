@@ -8,6 +8,7 @@ mus.loop=true;
 mus.volume=0.4;
 const sj=new Audio('jump.wav');
 const so=new Audio('over.wav');
+const sl=new Audio('level.wav');
 const mons=[
   {img:'small.png',w:100,h:80,n:2,b:0,l:1},
   {img:'big.png',w:92,h:128,n:6,b:0,l:1},
@@ -16,7 +17,7 @@ const mons=[
   
 ];
 
-let y=0,v=0,x=innerWidth,m,f=0,t=0,s=0,sp=8,dead=false,dt=0,last=0,lv=1;
+let y=0,v=0,x=innerWidth,m,f=0,t=0,s=0,sp=8,dead=false,dt=0,last=0,lv=1,pl=1;
  
  
 function pick(){
@@ -35,7 +36,7 @@ pick();
  
 
 function start(){
-  y=0;v=0;s=0;sp=8;t=0;lv=1;
+  y=0;v=0;s=0;sp=8;t=0;lv=1;pl=1;
   g.style.translate='0 0';
   pick();
   go.style.display='none';
@@ -87,8 +88,14 @@ function loop(now){
  
 
  s+=d;
-  lv=1+Math.floor(s/900);
-  sp=Math.min(20,8+(lv-1)*1.5);
+  lv=1+Math.floor(s/600);
+  if(lv>pl){
+  pl=lv;
+  sl.currentTime=0;
+  sl.play();
+}
+
+ sp=8+4*Math.sqrt(lv-1);
   x-=sp*d;
   sc.textContent='LV '+lv+'  '+Math.floor(s/6);
   if(x<-m.w)pick();
