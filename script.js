@@ -3,12 +3,16 @@ const ob=document.getElementById('ob');
 const sc=document.getElementById('sc');
 const go=document.getElementById('go');
 const fs=document.getElementById('fs');
-
+const mus=new Audio('music.mp3');
+mus.loop=true;
+mus.volume=0.4;
+const sj=new Audio('jump.wav');
+const so=new Audio('over.wav');
 const mons=[
   {img:'small.png',w:100,h:80,n:2,b:0,l:1},
   {img:'big.png',w:92,h:128,n:6,b:0,l:1},
   {img:'bat.png',w:160,h:125,n:2,b:20,l:2},
-  {img:'bat.png',w:160,h:125,n:2,b:115,l:3},
+  {img:'bat.png',w:160,h:125,n:2,b:145,l:3},
   
 ];
 
@@ -38,6 +42,8 @@ function start(){
   dead=false;
   last=performance.now();
   requestAnimationFrame(loop);
+  mus.currentTime=0;
+  mus.play();
 }
 
 function end(){
@@ -45,6 +51,8 @@ function end(){
   dt=Date.now();
   fs.textContent=Math.floor(s/6);
   go.style.display='flex';
+  mus.pause();
+  so.play();
 }
 
 function jump(){
@@ -52,7 +60,12 @@ function jump(){
     if(Date.now()-dt>400)start();
     return;
   }
-    if(y===0)v=20;
+  mus.play();
+  if(y===0){
+    v=20;
+    sj.currentTime=0;
+    sj.play();
+  }
 }
 
 document.addEventListener('keydown',e=>{
@@ -95,6 +108,7 @@ function loop(now){
   }
   requestAnimationFrame(loop);
 }
+
 last=performance.now();
 requestAnimationFrame(loop);
  
