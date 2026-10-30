@@ -79,8 +79,8 @@ document.addEventListener('keydown',e=>{
 addEventListener('pointerdown',jump);
  
 function loop(now){
-  const d=Math.min((now-last)/16.667,3);
-  last=now;
+  const d=Math.max(0,Math.min((now-last)/16.667,3));
+last=now;
   v-=0.799*d;
   y+=v*d;
   if(y<0){y=0;v=0}
@@ -95,7 +95,7 @@ function loop(now){
   sl.play();
 }
 
- sp=8+4*Math.sqrt(lv-1);
+sp=8+4*Math.sqrt(Math.max(lv-1,0));
   x-=sp*d;
   sc.textContent='LV '+lv+'  '+Math.floor(s/6);
   if(x<-m.w)pick();
