@@ -8,6 +8,7 @@
 - tashu is captured by some ghosts
 - so we have to help him to escape these!
 - I MADE THIS GAME'S LEVEL SYSTEM
+<img width="1917" height="1197" alt="Screenshot 2026-10-30 151055" src="https://github.com/user-attachments/assets/de30e1e1-39d8-4598-a1cc-8a895e44be60" />
 
 # FEATURES
 - PIXELATED FUNCTIONALABLE GAME
@@ -28,6 +29,9 @@
 - NEW VOICE EFFECTS
 - A PROPER  LEVEL SYSTEM
 - A CORE IDEA THAT CANT BE DESCRIBED HERE!!
+
+<img width="1917" height="1198" alt="Screenshot 2026-10-30 151108" src="https://github.com/user-attachments/assets/a24b9598-bc42-4be9-953d-0d5a8201670e" />
+
 
 # HOW TO PLAY
 - OPEN https://monsterjump.netlify.app/ IN YOUR BROWSER
